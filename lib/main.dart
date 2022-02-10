@@ -22,7 +22,9 @@ class _bigNumState extends State<bigNum> {
     return Scaffold(
       backgroundColor: Colors.brown[800],
       appBar: AppBar(
-        title: Center(child: Text('Bigger Number Game!',
+        title: const Center(
+            child: Text(
+          'Bigger Number Game!',
           style: TextStyle(
             color: Colors.white70,
             letterSpacing: 2.0,
@@ -36,12 +38,13 @@ class _bigNumState extends State<bigNum> {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(15.0, 30.0, 15.0, 0.0),
-            child: Text('Press the button of the larger number. If you get it right you will get a point! If you get it wrong , you will lose a point.',
+            child: Text(
+              'Press the button of the larger number. If you get it right you will get a point! If you get it wrong , you will lose a point.',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.grey[400],
                 letterSpacing: 1.5,
-                  fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -51,43 +54,59 @@ class _bigNumState extends State<bigNum> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20),
-                  backgroundColor: Colors.white,
-                ),
-                  onPressed: (){check('left');},
-                    child: Text(randomNumber('left').toString(),
-                  style: TextStyle(color: Colors.black,),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    check('left');
+                  },
+                  child: Text(
+                    randomNumber('left').toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
                     ),
+                  ),
                 ),
-                TextButton(style: TextButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20),
-                  backgroundColor: Colors.white,
-                ),
-                  onPressed: (){check('right');},
-                  child: Text(randomNumber('right').toString(),
-                    style: TextStyle(color: Colors.black,),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    check('right');
+                  },
+                  child: Text(
+                    randomNumber('right').toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 200.0,),
+          const SizedBox(
+            height: 200.0,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Points: ',
+              Text(
+                'Points: ',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.lightGreen[300],
                   letterSpacing: 1.0,
                 ),
               ),
-              Text('$score',
+              Text(
+                '$score',
                 style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.lightGreen[300],
-                letterSpacing: 1.0,
+                  fontSize: 20.0,
+                  color: Colors.lightGreen[300],
+                  letterSpacing: 1.0,
                 ),
               )
             ],
@@ -96,17 +115,17 @@ class _bigNumState extends State<bigNum> {
       ),
     );
   }
-  int randomNumber(String btn){
-    if(btn == 'left'){
+
+  int randomNumber(String btn) {
+    if (btn == 'left') {
       setState(() {
         leftBtn = Random().nextInt(9);
       });
       return leftBtn;
-    }
-    else if(btn == 'right'){
+    } else if (btn == 'right') {
       setState(() {
         rightBtn = Random().nextInt(9);
-        while(leftBtn == rightBtn){
+        while (leftBtn == rightBtn) {
           rightBtn = Random().nextInt(9);
         }
       });
@@ -114,28 +133,26 @@ class _bigNumState extends State<bigNum> {
     }
     return 0;
   }
-  void check(String pressedBtn){
-    if(pressedBtn == 'left'){
-      if(leftBtn>rightBtn){
+
+  void check(String pressedBtn) {
+    if (pressedBtn == 'left') {
+      if (leftBtn > rightBtn) {
         setState(() {
-          score +=1;
+          score += 1;
+        });
+      } else {
+        setState(() {
+          score -= 1;
         });
       }
-      else{
+    } else if (pressedBtn == 'right') {
+      if (rightBtn > leftBtn) {
         setState(() {
-          score -=1;
+          score += 1;
         });
-      }
-    }
-    else if(pressedBtn == 'right'){
-      if(rightBtn>leftBtn){
+      } else {
         setState(() {
-          score +=1;
-        });
-      }
-      else{
-        setState(() {
-          score -=1;
+          score -= 1;
         });
       }
     }
